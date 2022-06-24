@@ -7,4 +7,7 @@ locals {
     dev = "SM Development"
     prd = "SM Production"
   }
+  apps = [
+    "app1"
+  ]
 }

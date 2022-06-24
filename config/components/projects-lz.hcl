@@ -19,11 +19,13 @@ inputs = {
   projects = [
     "monitoring",
     "management",
+    "artifacts",
   ]
 
   additional_apis = {
-    # "monitoring" = [
-    #   "logging.googleapis.com",
-    # ]
+    "artifacts" = [
+      "artifactregistry.googleapis.com",
+      "cloudkms.googleapis.com",
+    ]
   }
 }

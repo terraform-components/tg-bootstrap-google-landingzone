@@ -4,6 +4,7 @@ terraform {
 
 locals {
   environment = read_terragrunt_config(find_in_parent_folders("env.hcl")).locals.environment
+  apps        = read_terragrunt_config(find_in_parent_folders("context.hcl")).locals.apps
 }
 
 dependency "base" {
@@ -34,7 +35,5 @@ inputs = {
     "redis.googleapis.com",
   ]
 
-  projects = [
-    "app1"
-  ]
+  projects = concat(local.apps, [])
 }
