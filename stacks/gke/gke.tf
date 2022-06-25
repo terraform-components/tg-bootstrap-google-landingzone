@@ -93,8 +93,8 @@ resource "google_container_cluster" "main" {
 
   lifecycle {
     create_before_destroy = true
-    prevent_destroy       = true
-    ignore_changes        = [node_config]
+    #prevent_destroy       = true
+    ignore_changes = [node_config]
   }
 
 }

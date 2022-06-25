@@ -3,5 +3,5 @@ include "root" {
 }
 
 include "common" {
-  path = find_in_parent_folders("components/projects-env.hcl")
+  path = find_in_parent_folders("components/projects-gke.hcl")
 }

@@ -1,6 +1,6 @@
 # bootstrap
 
-This is a simple Quickstart Repository for a working GCP organization and project structure with some stacks for different use cases. This is opinionated and will not cover all use cases or all things to think about but serves as a good starting point for getting your infrastructure up and running in a decent structure already. There are many things one can adjust depending on how a business operates, but that's not something I can put in a general bootstrap. This is aimed to be usable by many, but certainly, not everyone, at least not without modification.
+The goal of this repository is to give a simple quickstart of an opinionated secure and flexible structure for your GCP organization and projects, that should give you at minimum a good starting point, but will even be good enough for many early projects while giving the flexibility of future changes. For achieving this I have made many choices to keep things simple but also flexible in a lego-manner, so you can mix and match to what your needs are. While this is a starting point it is by no means the best way to do it or will apply to any scale or complexity. The bigger or more complex your project, the more considerations you will have and the more time and effort you should put into that.
 
 You will find here:
 
@@ -20,6 +20,9 @@ You will find here:
   - *network*
   - *network-subnets*
   - *network-nat*
+  - *network-gke*
+  - *kms*
+  - *gke*
 - *modules/* - modules will be used in stacks sometimes. there are usually no modules-of-modules but modules-in-stacks only
 
 

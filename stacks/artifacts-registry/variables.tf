@@ -1,4 +1,4 @@
-variable "docker" {
+variable "docker_apps" {
   type = list(string)
 }
 

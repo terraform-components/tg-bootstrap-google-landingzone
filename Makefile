@@ -17,4 +17,7 @@ login:
 docker-configure:
   # https://cloud.google.com/artifact-registry/docs/docker/authentication#gcloud-helper
 	gcloud auth configure-docker europe-docker.pkg.dev
-	
+
+# remove all terragrunt caches. CAUTION.
+clean-cache:
+	find . -type d -name ".terragrunt-cache" -prune -exec rm -rf {} \;

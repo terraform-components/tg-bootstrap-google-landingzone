@@ -3,5 +3,5 @@ include "root" {
 }
 
 include "common" {
-  path = find_in_parent_folders("components/kms.hcl")
+  path = find_in_parent_folders("components/kms-gke.hcl")
 }

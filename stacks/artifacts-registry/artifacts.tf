@@ -1,5 +1,5 @@
 resource "google_artifact_registry_repository" "docker" {
-  for_each = toset(var.docker)
+  for_each = toset(var.docker_apps)
   provider = google-beta
 
   location      = var.location
