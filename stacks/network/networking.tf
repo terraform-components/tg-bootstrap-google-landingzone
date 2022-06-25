@@ -3,12 +3,12 @@ locals {
 }
 
 resource "google_compute_network" "vpc" {
-  name                    = format(local.name_format["global"], "vpc")
+  name                    = format(local.name_format["global"], var.name)
   auto_create_subnetworks = false
 }
 
 resource "google_compute_global_address" "private_ip" {
-  name          = format(local.name_format["global"], "private-ip")
+  name          = format(local.name_format["global"], "${var.name}-private-ip")
   purpose       = "VPC_PEERING"
   address_type  = "INTERNAL"
   address       = split("/", var.cidr_service_networking)[0]

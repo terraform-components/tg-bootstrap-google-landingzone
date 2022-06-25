@@ -4,7 +4,7 @@ locals {
 
 resource "google_compute_subnetwork" "sn" {
   network                  = var.network
-  name                     = format(local.name_format[var.region], "gke")
+  name                     = format(local.name_format[var.region], "${var.name}-gke")
   ip_cidr_range            = var.cidr.nodes
   private_ip_google_access = true
 

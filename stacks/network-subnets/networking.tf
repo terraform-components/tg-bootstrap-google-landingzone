@@ -13,7 +13,7 @@ locals {
 resource "google_compute_subnetwork" "sn" {
   for_each                 = local.subnets
   network                  = var.network
-  name                     = format(local.name_format[each.value.location], each.key)
+  name                     = format(local.name_format[each.value.location], "${var.name}-${each.key}")
   ip_cidr_range            = each.value.range
   private_ip_google_access = true
 

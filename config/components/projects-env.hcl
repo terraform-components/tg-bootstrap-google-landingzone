@@ -33,6 +33,7 @@ inputs = {
     "appengine.googleapis.com",
     "iap.googleapis.com",
     "redis.googleapis.com",
+    "cloudkms.googleapis.com",
   ]
 
   projects = concat(local.apps, [])
