@@ -7,11 +7,7 @@ locals {
     dev = "SM Development"
     prd = "SM Production"
   }
-  cloudrun_apps = [
-    "cloudrun-simple",
-    "cloudrun-vpc",
+  docker_apps = [
+    "testapp"
   ]
-  docker_apps = concat(local.cloudrun_apps, [
-    "gke-testapp",
-  ])
 }

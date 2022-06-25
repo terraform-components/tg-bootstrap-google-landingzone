@@ -36,7 +36,6 @@ inputs = {
   ]
 
   projects = [
-    "cloudrun-simple",
-    "cloudrun-shared-vpc",
+    "shared-vpc",
   ]
 }

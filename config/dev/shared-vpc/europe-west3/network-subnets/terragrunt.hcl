@@ -3,5 +3,5 @@ include "root" {
 }
 
 include "common" {
-  path = find_in_parent_folders("components/network-nat.hcl")
+  path = find_in_parent_folders("components/network-subnets.hcl")
 }
