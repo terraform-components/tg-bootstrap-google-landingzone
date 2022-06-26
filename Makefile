@@ -21,3 +21,6 @@ docker-configure:
 # remove all terragrunt caches. CAUTION.
 clean-cache:
 	find . -type d -name ".terragrunt-cache" -prune -exec rm -rf {} \;
+
+log-settings:
+	gcloud logging settings update --organization=$(TF_VAR_org_id) --storage-location=europe-west3
