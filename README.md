@@ -29,22 +29,4 @@ You will find here:
 - *modules/* - modules will be used in stacks sometimes. there are usually no modules-of-modules but modules-in-stacks only
 
 
-
-NOTE: this is WiP, big changes will still happen
-
-# TODO
-
-- [ ] service accounts, permissions
-- [ ] gh actions
-- [ ] look at spacelift
-- [ ] group permissions and mapping
-- [ ] logging, monitoring, archive
-- [ ] artifacts
-- [ ] keys
-- [ ] secret manager
-- [ ] cloud run
-- [ ] cloud sql
-- [ ] memorystore
-- [ ] vpc
-- [ ] gke, lots details
-- [ ] much what I likely forgot right now
+NOTE: this is WiP early stage, big changes will still happen
