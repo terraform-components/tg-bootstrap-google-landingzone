@@ -42,4 +42,5 @@ tmp/
 .vscode
 terragrunt-debug.tfvars.json
 
-secret.hcl
+.envrc
+.env

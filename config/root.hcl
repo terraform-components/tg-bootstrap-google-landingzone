@@ -11,11 +11,6 @@ locals {
   # Automatically load account-level variables
   project_vars = read_terragrunt_config(find_in_parent_folders("project.hcl"))
 
-  # Automatically load secret variables (should be environment in CI for now)
-  # not ideal yet, but this is not highly secret
-  # yet things like billing account id and org id do not need to be known to everyone necessarily :-)
-  secret_vars = read_terragrunt_config(find_in_parent_folders("secret.hcl"))
-
   # Extract the variables we need for easy access
   region      = local.location_vars.locals.region
   environment = local.environment_vars.locals.environment
@@ -130,5 +125,4 @@ inputs = merge(
   local.environment_vars.locals,
   local.location_vars.locals,
   local.project_vars.locals,
-  local.secret_vars.locals,
 )

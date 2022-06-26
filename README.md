@@ -23,6 +23,9 @@ You will find here:
   - *network-gke*
   - *kms*
   - *gke*
+  - *cloudrun*
+  - *service-account-app*
+  - *loadbalancer-l7-global*
 - *modules/* - modules will be used in stacks sometimes. there are usually no modules-of-modules but modules-in-stacks only
 
 
