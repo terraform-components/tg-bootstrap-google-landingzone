@@ -23,4 +23,4 @@ clean-cache:
 	find . -type d -name ".terragrunt-cache" -prune -exec rm -rf {} \;
 
 log-settings:
-	gcloud logging settings update --organization=$(TF_VAR_org_id) --storage-location=europe-west3
+	gcloud alpha logging settings update --organization=$(TF_VAR_org_id) --storage-location=europe-west3
