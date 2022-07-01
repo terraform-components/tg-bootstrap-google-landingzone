@@ -19,3 +19,11 @@ module "project_services" {
   disable_dependent_services  = true
   project_id                  = google_project.project[each.key].project_id
 }
+
+resource "google_project_default_service_accounts" "default_service_accounts" {
+  for_each       = toset(var.projects)
+  action         = "DISABLE"
+  restore_policy = "REVERT_AND_IGNORE_FAILURE"
+  depends_on     = [module.project_services]
+  project        = google_project.project[each.key].project_id
+}
