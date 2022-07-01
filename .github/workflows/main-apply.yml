@@ -1,0 +1,7 @@
+# name: deploy
+
+# on:
+#   push:
+#     branches:
+#       - main
+

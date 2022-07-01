@@ -1,0 +1,14 @@
+name: review
+
+on:
+  pull_request:
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/workflows/plan
+        with:
+          env: lz
+          project: bootstrap
+          stack: tfstate
