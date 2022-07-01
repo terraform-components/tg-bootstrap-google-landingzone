@@ -11,7 +11,7 @@ resource "google_service_account_iam_binding" "infra_reviewer_workload_identity_
   role               = "roles/iam.workloadIdentityUser"
   members = [
     for repo in toset(var.repositories) :
-    "principalSet://iam.googleapis.com/${var.github_workload_identity_pool}/attribute.repository_ref_workflow/${repo}/refs/heads/${var.main_branch}/${var.review_workflow}"
+    "principalSet://iam.googleapis.com/${var.github_workload_identity_pool}/attribute.repository_base_ref_workflow/${repo}/${var.main_branch}/${var.review_workflow}"
   ]
 }
 
