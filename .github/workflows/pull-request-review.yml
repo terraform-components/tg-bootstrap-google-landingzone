@@ -7,6 +7,6 @@ jobs:
   plan:
     uses: ./.github/workflows/plan.yml
     with:
-      environment: lz
+      env: lz
       project: bootstrap
       stack: tfstate
