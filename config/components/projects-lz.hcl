@@ -23,9 +23,12 @@ inputs = {
   ]
 
   additional_apis = {
-    "artifacts" = [
+    artifacts = [
       "artifactregistry.googleapis.com",
       "cloudkms.googleapis.com",
+    ]
+    management = [
+      "iamcredentials.googleapis.com"
     ]
   }
 }
