@@ -47,3 +47,8 @@ resource "google_project_iam_member" "infra_reviewer_tfstate" {
   member  = "serviceAccount:${google_service_account.infra_reviewer.email}"
 }
 
+resource "google_project_iam_member" "infra_reviewer_tfstate_viewer" {
+  project = "${var.context}-lz-tfstate"
+  role    = "roles/viewer"
+  member  = "serviceAccount:${google_service_account.infra_reviewer.email}"
+}
