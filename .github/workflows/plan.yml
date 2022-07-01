@@ -84,7 +84,7 @@ jobs:
       - id: plan
         name: Run Plan
         run: |-
-          echo $GITHUB_REF
+          echo $GITHUB_HEAD_REF
 
           gcloud auth login --brief --cred-file="${{ steps.gcpauth.outputs.credentials_file_path }}"
 
