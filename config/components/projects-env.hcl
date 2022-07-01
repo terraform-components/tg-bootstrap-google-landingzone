@@ -3,7 +3,7 @@ terraform {
 }
 
 dependency "folders" {
-  config_path = "${get_path_to_repo_root()}//config/lz/structure/folders"
+  config_path = "../folders"
 }
 
 # These inputs get merged with the common inputs from the root

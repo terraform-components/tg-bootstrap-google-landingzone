@@ -32,7 +32,6 @@ override.tf.json
 plz-out
 .plzconfig.local
 *.tfstate*
-*.lock*
 .terraform
 .DS_Store
 *.tfplan

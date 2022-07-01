@@ -3,7 +3,7 @@ terraform {
 }
 
 dependency "structure-folders" {
-  config_path = "../../structure/folders"
+  config_path = "../folders"
 }
 
 # These inputs get merged with the common inputs from the root

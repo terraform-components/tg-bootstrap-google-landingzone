@@ -9,18 +9,10 @@ on:
         description: The environment we are running in
         required: true
         type: string
-      project:
-        description: project for this stack
-        required: true
-        type: string
-      location:
-        description: Some stacks are global, others are local, we can add the location here
+      path:
+        description: path
         required: false
         default: ""
-        type: string
-      stack:
-        description: name of the stack
-        required: true
         type: string
       terraform_version:
         required: false
@@ -95,6 +87,4 @@ jobs:
 
           gcloud auth login --brief --cred-file="${{ steps.gcpauth.outputs.credentials_file_path }}"
 
-          [ -z "${{ inputs.location }}" ] && unset location || export location="${{ inputs.location }}/"
-
-          cd config/${{ inputs.env }}/${{ inputs.project }}/${location}${{ inputs.stack }} && terragrunt plan -lock=${{ inputs.lock }}
+          cd config/${{ inputs.env }}/${{ inputs.path }} && terragrunt run-all plan -lock=${{ inputs.lock }}

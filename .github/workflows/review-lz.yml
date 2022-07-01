@@ -4,69 +4,22 @@ on:
   pull_request:
 
 jobs:
-  bootstrap-tfstate:
+  bootstrap:
     uses: ./.github/workflows/plan.yml
     with:
       env: lz
-      project: bootstrap
-      stack: tfstate
     secrets:
       org_id: ${{ secrets.org_id }}
       billing_account: ${{ secrets.billing_account }}
 
-  environment-org-policies:
+  management:
     uses: ./.github/workflows/plan.yml
     with:
       env: lz
-      project: org
-      stack: policies
+      path: management
 
-  environment-structure-folders:
+  artifacts:
     uses: ./.github/workflows/plan.yml
     with:
       env: lz
-      project: structure
-      stack: folders
-
-  artifact-registry:
-    uses: ./.github/workflows/plan.yml
-    with:
-      env: lz
-      project: artifacts
-      location: europe
-      stack: registry
-
-  environment-github-workload-pool:
-    uses: ./.github/workflows/plan.yml
-    with:
-      env: lz
-      project: environment
-      stack: github-workload-pool
-
-  environment-projects:
-    uses: ./.github/workflows/plan.yml
-    with:
-      env: lz
-      project: environment
-      stack: projects
-
-  environment-projects-dev:
-    uses: ./.github/workflows/plan.yml
-    with:
-      env: lz
-      project: environment
-      stack: projects-dev
-
-  environment-service-accounts:
-    uses: ./.github/workflows/plan.yml
-    with:
-      env: lz
-      project: environment
-      stack: service-accounts
-
-  environment-service-accounts-infra-dev:
-    uses: ./.github/workflows/plan.yml
-    with:
-      env: lz
-      project: environment
-      stack: service-accounts-infra-dev
+      path: artifacts

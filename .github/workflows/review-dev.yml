@@ -4,32 +4,8 @@ on:
   pull_request:
 
 jobs:
-  cloudrun-simple-service-account:
+  cloudrun-simple:
     uses: ./.github/workflows/plan.yml
     with:
       env: dev
-      project: cloudrun-simple
-      stack: service-account
-
-  cloudrun-simple-ingress:
-    uses: ./.github/workflows/plan.yml
-    with:
-      env: dev
-      project: cloudrun-simple
-      stack: ingress
-
-  cloudrun-simple-cloudrun:
-    uses: ./.github/workflows/plan.yml
-    with:
-      env: dev
-      project: cloudrun-simple
-      location: europe-west3
-      stack: cloudrun
-
-  cloudrun-simple-cloudsql:
-    uses: ./.github/workflows/plan.yml
-    with:
-      env: dev
-      project: cloudrun-simple
-      location: europe-west3
-      stack: cloudsql
+      path: cloudrun-simple
