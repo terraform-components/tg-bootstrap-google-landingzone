@@ -7,7 +7,7 @@ jobs:
   plan:
     runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/workflows/plan.yaml
+      - uses: ./.github/workflows/plan.yml
         with:
           env: lz
           project: bootstrap
