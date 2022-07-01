@@ -4,7 +4,7 @@ on:
   pull_request:
 
 jobs:
-  tfstate:
+  lz-bootstrap-tfstate:
     uses: ./.github/workflows/plan.yml
     with:
       env: lz
@@ -13,10 +13,111 @@ jobs:
     secrets:
       org_id: ${{ secrets.org_id }}
       billing_account: ${{ secrets.billing_account }}
-  artifact-registry:
+
+  lz-environment-org-policies:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: lz
+      project: org
+      stack: policies
+
+  lz-environment-structure-folders:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: lz
+      project: structure
+      stack: folders
+
+  lz-artifact-registry:
     uses: ./.github/workflows/plan.yml
     with:
       env: lz
       project: artifacts
       location: europe
       stack: registry
+
+  lz-environment-github-workload-pool:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: lz
+      project: environment
+      stack: github-workload-pool
+
+  lz-environment-projects:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: lz
+      project: environment
+      stack: projects
+
+  lz-environment-service-accounts:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: lz
+      project: environment
+      stack: service-accounts
+
+  dev-environment-projects-base:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: dev
+      project: environment
+      stack: projects-base
+
+  dev-environment-projects-cloudrun:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: dev
+      project: environment
+      stack: projects-cloudrun
+
+  dev-environment-projects-gke:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: dev
+      project: environment
+      stack: projects-gke
+
+  dev-environment-projects-regulated:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: dev
+      project: environment
+      stack: projects-regulated
+
+  dev-environment-service-accounts-infra:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: dev
+      project: environment
+      stack: service-accounts-infra
+
+  dev-environment-cloudrun-simple-service-account:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: dev
+      project: cloudrun-simple
+      stack: service-account
+
+  dev-environment-cloudrun-simple-ingress:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: dev
+      project: cloudrun-simple
+      stack: ingress
+
+  dev-environment-cloudrun-simple-cloudrun:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: dev
+      project: cloudrun-simple
+      location: europe-west3
+      stack: cloudrun
+
+  dev-environment-cloudrun-simple-cloudsql:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: dev
+      project: cloudrun-simple
+      location: europe-west3
+      stack: cloudsql
