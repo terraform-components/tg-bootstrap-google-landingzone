@@ -2,14 +2,12 @@ terraform {
   source = "${get_path_to_repo_root()}//stacks/projects"
 }
 
-dependency "structure-folders" {
+dependency "folders" {
   config_path = "../folders"
 }
 
 # These inputs get merged with the common inputs from the root
 inputs = {
-
-  folder = dependency.structure-folders.outputs.folders["lz"]
 
   default_apis = [
     "monitoring.googleapis.com",
@@ -18,17 +16,11 @@ inputs = {
 
   projects = [
     "monitoring",
-    "management",
-    "artifacts",
+    "cloudrun-simple",
   ]
 
   additional_apis = {
-    artifacts = [
-      "artifactregistry.googleapis.com",
-      "cloudkms.googleapis.com",
-    ]
-    management = [
-      "iamcredentials.googleapis.com",
+    cloudrun-simple = [
       "servicenetworking.googleapis.com",
       "compute.googleapis.com",
       "run.googleapis.com",
@@ -41,11 +33,6 @@ inputs = {
       "iap.googleapis.com",
       "redis.googleapis.com",
       "cloudkms.googleapis.com",
-      "container.googleapis.com",
-      "sourcerepo.googleapis.com",
-      "cloudresourcemanager.googleapis.com",
-      "serviceusage.googleapis.com",
-      "secretmanager.googleapis.com",
     ]
   }
 }

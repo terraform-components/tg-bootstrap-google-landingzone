@@ -38,3 +38,9 @@ resource "google_project_iam_member" "infra_deployer_tfstate" {
   role    = "roles/storage.objectAdmin"
   member  = "serviceAccount:${google_service_account.infra_deployer.email}"
 }
+
+resource "google_project_iam_member" "infra_deployer_tfstate_viewer" {
+  project = "${var.context}-lz-tfstate"
+  role    = "roles/viewer"
+  member  = "serviceAccount:${google_service_account.infra_deployer.email}"
+}

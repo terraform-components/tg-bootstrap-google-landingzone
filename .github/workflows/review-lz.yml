@@ -1,0 +1,25 @@
+name: review-lz
+
+on:
+  pull_request:
+
+jobs:
+  bootstrap:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: lz
+    secrets:
+      org_id: ${{ secrets.org_id }}
+      billing_account: ${{ secrets.billing_account }}
+
+  management:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: lz
+      path: management
+
+  artifacts:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: lz
+      path: artifacts

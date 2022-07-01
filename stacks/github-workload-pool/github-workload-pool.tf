@@ -23,9 +23,11 @@ resource "google_iam_workload_identity_pool_provider" "github" {
     "attribute.environment"                         = "assertion.environment"
     "attribute.ref"                                 = "assertion.ref"
     "attribute.workflow"                            = "assertion.workflow"
+    "attribute.job_workflow_ref"                    = "assertion.job_workflow_ref" # e.g. "octo-org/octo-automation/.github/workflows/oidc.yml@refs/heads/main",
     "attribute.repository_ref"                      = "assertion.repository + '/' + assertion.ref"
     "attribute.repository_ref_workflow"             = "assertion.repository + '/' + assertion.ref + '/' + assertion.workflow"
     "attribute.repository_ref_workflow_environment" = "assertion.repository + '/' + assertion.ref + '/' + assertion.workflow + '/' + assertion.environment"
+    "attribute.repository_base_ref_workflow"        = "assertion.repository + '/' + assertion.base_ref + '/' + assertion.workflow"
   }
   oidc {
     issuer_uri = "https://token.actions.githubusercontent.com"
