@@ -50,9 +50,23 @@ jobs:
       project: environment
       stack: projects
 
+  environment-projects-dev:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: lz
+      project: environment
+      stack: projects-dev
+
   environment-service-accounts:
     uses: ./.github/workflows/plan.yml
     with:
       env: lz
       project: environment
       stack: service-accounts
+
+  environment-service-accounts-infra-dev:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: lz
+      project: environment
+      stack: service-accounts-infra-dev

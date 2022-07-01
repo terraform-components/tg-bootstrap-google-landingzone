@@ -4,41 +4,6 @@ on:
   pull_request:
 
 jobs:
-  environment-projects-base:
-    uses: ./.github/workflows/plan.yml
-    with:
-      env: dev
-      project: environment
-      stack: projects-base
-
-  environment-projects-cloudrun:
-    uses: ./.github/workflows/plan.yml
-    with:
-      env: dev
-      project: environment
-      stack: projects-cloudrun
-
-  environment-projects-gke:
-    uses: ./.github/workflows/plan.yml
-    with:
-      env: dev
-      project: environment
-      stack: projects-gke
-
-  environment-projects-regulated:
-    uses: ./.github/workflows/plan.yml
-    with:
-      env: dev
-      project: environment
-      stack: projects-regulated
-
-  environment-service-accounts-infra:
-    uses: ./.github/workflows/plan.yml
-    with:
-      env: dev
-      project: environment
-      stack: service-accounts-infra
-
   cloudrun-simple-service-account:
     uses: ./.github/workflows/plan.yml
     with:

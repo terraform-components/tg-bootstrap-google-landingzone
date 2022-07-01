@@ -5,3 +5,8 @@ include "root" {
 include "common" {
   path = find_in_parent_folders("components/service-accounts-infra.hcl")
 }
+
+inputs = {
+  folder      = dependency.folders.outputs.folders["dev"]
+  environment = "dev"
+}
