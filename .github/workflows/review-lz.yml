@@ -1,0 +1,58 @@
+name: review-lz
+
+on:
+  pull_request:
+
+jobs:
+  bootstrap-tfstate:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: lz
+      project: bootstrap
+      stack: tfstate
+    secrets:
+      org_id: ${{ secrets.org_id }}
+      billing_account: ${{ secrets.billing_account }}
+
+  environment-org-policies:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: lz
+      project: org
+      stack: policies
+
+  environment-structure-folders:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: lz
+      project: structure
+      stack: folders
+
+  artifact-registry:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: lz
+      project: artifacts
+      location: europe
+      stack: registry
+
+  environment-github-workload-pool:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: lz
+      project: environment
+      stack: github-workload-pool
+
+  environment-projects:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: lz
+      project: environment
+      stack: projects
+
+  environment-service-accounts:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: lz
+      project: environment
+      stack: service-accounts
