@@ -5,10 +5,10 @@ name: plan
 on:
   workflow_call:
     inputs:
-      env:
+      environment:
         description: The environment we are running in
         required: true
-        type: string
+        type: environment
       project:
         description: project for this stack
         required: true
@@ -42,7 +42,11 @@ on:
         required: false
         type: string
         default: "false"
-
+    secrets:
+      billing_account:
+        required: false
+      org_id:
+        required: false
 jobs:
   plan:
     runs-on: ubuntu-latest
@@ -83,6 +87,9 @@ jobs:
 
       - id: plan
         name: Run Plan
+        env:
+          TF_VAR_billing_account: ${{ secrets.billing_account }}
+          TF_VAR_org_id: ${{ secrets.org_id }}
         run: |-
           echo $GITHUB_BASE_REF
 
