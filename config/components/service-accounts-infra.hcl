@@ -3,7 +3,7 @@ terraform {
 }
 
 dependency "github-workload-pool" {
-  config_path = "${get_path_to_repo_root()}//config/lz/environment/github-workload-pool"
+  config_path = "../github-workload-pool"
 }
 
 dependency "folders" {
