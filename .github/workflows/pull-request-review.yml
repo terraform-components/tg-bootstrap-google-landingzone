@@ -10,3 +10,6 @@ jobs:
       env: lz
       project: bootstrap
       stack: tfstate
+    secrets:
+      org_id: ${{ secrets.org_id }}
+      billing_account: ${{ secrets.billing_account }}

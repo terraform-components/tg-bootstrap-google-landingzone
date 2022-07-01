@@ -28,7 +28,19 @@ inputs = {
       "cloudkms.googleapis.com",
     ]
     management = [
-      "iamcredentials.googleapis.com"
+      "iamcredentials.googleapis.com",
+      "servicenetworking.googleapis.com",
+      "compute.googleapis.com",
+      "run.googleapis.com",
+      "vpcaccess.googleapis.com",
+      "deploymentmanager.googleapis.com",
+      "cloudbuild.googleapis.com",
+      "sqladmin.googleapis.com",
+      "cloudtasks.googleapis.com",
+      "appengine.googleapis.com",
+      "iap.googleapis.com",
+      "redis.googleapis.com",
+      "cloudkms.googleapis.com",
     ]
   }
 }
