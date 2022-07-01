@@ -5,10 +5,10 @@ name: plan
 on:
   workflow_call:
     inputs:
-      environment:
+      env:
         description: The environment we are running in
         required: true
-        type: environment
+        type: string
       project:
         description: project for this stack
         required: true
