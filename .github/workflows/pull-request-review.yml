@@ -4,7 +4,7 @@ on:
   pull_request:
 
 jobs:
-  plan:
+  tfstate:
     uses: ./.github/workflows/plan.yml
     with:
       env: lz
@@ -13,3 +13,10 @@ jobs:
     secrets:
       org_id: ${{ secrets.org_id }}
       billing_account: ${{ secrets.billing_account }}
+  artifact-registry:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: lz
+      project: artifacts
+      location: europe
+      stack: registry
