@@ -41,6 +41,11 @@ inputs = {
       "iap.googleapis.com",
       "redis.googleapis.com",
       "cloudkms.googleapis.com",
+      "container.googleapis.com",
+      "sourcerepo.googleapis.com",
+      "cloudresourcemanager.googleapis.com",
+      "serviceusage.googleapis.com",
+      "secretmanager.googleapis.com",
     ]
   }
 }
