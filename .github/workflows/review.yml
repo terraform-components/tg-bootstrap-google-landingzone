@@ -5,7 +5,7 @@ on:
 
 jobs:
   bootstrap:
-    uses: sandrom/tf-gcp-bootstrap/main/sandrom/tf-gcp-bootstrap/.github/workflows/plan.yml@main
+    uses: sandrom/tf-gcp-bootstrap/.github/workflows/plan.yml@main
     with:
       env: lz
     secrets:
