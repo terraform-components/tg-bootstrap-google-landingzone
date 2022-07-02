@@ -85,6 +85,4 @@ jobs:
         run: |-
           echo $GITHUB_BASE_REF
 
-          gcloud auth login --brief --cred-file="${{ steps.gcpauth.outputs.credentials_file_path }}"
-
           cd config/${{ inputs.env }}/${{ inputs.path }} && terragrunt run-all plan -lock=${{ inputs.lock }}
