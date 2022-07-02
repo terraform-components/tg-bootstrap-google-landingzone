@@ -35,6 +35,6 @@ variable "deployers" {
   default = []
 }
 
-variable "folder" {
-  type = string
+variable "stages" {
+  type = map(string)
 }

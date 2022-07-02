@@ -13,8 +13,8 @@ variable "additional_apis" {
   default = {}
 }
 
-variable "folder" {
-  type = string
+variable "environments" {
+  type = map(string)
 }
 
 variable "billing_account" {

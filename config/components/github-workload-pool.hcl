@@ -3,7 +3,7 @@ terraform {
 }
 
 dependency "projects" {
-  config_path = "../projects"
+  config_path = "../projects/lz"
 }
 
 inputs = {

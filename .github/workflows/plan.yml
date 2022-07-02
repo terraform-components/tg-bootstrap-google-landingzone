@@ -54,7 +54,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
@@ -67,9 +67,7 @@ jobs:
         with:
           terragrunt_version: ${{ inputs.terragrunt_version }}
 
-      - name: Setup Cloud
-        uses: google-github-actions/setup-gcloud@v0
-
+      # https://github.com/google-github-actions/auth/blob/main/docs/TROUBLESHOOTING.md
       - id: gcpauth
         name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v0
@@ -77,14 +75,13 @@ jobs:
           workload_identity_provider: ${{ inputs.workload_identity_provider }}
           service_account: "${{ inputs.env }}${{ inputs.service_account_suffix }}"
 
+      - name: Setup Cloud
+        uses: google-github-actions/setup-gcloud@v0
+
       - id: plan
         name: Run Plan
         env:
           TF_VAR_billing_account: ${{ secrets.billing_account }}
           TF_VAR_org_id: ${{ secrets.org_id }}
         run: |-
-          echo $GITHUB_BASE_REF
-
-          gcloud auth login --brief --cred-file="${{ steps.gcpauth.outputs.credentials_file_path }}"
-
           cd config/${{ inputs.env }}/${{ inputs.path }} && terragrunt run-all plan -lock=${{ inputs.lock }}

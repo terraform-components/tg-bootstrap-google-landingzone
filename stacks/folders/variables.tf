@@ -5,3 +5,7 @@ variable "org_id" {
 variable "environments" {
   type = map(string)
 }
+
+variable "stages" {
+  type = list(string)
+}
