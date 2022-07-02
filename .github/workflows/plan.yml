@@ -67,15 +67,15 @@ jobs:
         with:
           terragrunt_version: ${{ inputs.terragrunt_version }}
 
-      - name: Setup Cloud
-        uses: google-github-actions/setup-gcloud@v0
-
       - id: gcpauth
         name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v0
         with:
           workload_identity_provider: ${{ inputs.workload_identity_provider }}
           service_account: "${{ inputs.env }}${{ inputs.service_account_suffix }}"
+
+      - name: Setup Cloud
+        uses: google-github-actions/setup-gcloud@v0
 
       - id: plan
         name: Run Plan
