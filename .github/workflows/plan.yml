@@ -67,6 +67,7 @@ jobs:
         with:
           terragrunt_version: ${{ inputs.terragrunt_version }}
 
+      # https://github.com/google-github-actions/auth/blob/main/docs/TROUBLESHOOTING.md
       - id: gcpauth
         name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v0
@@ -83,6 +84,5 @@ jobs:
           TF_VAR_billing_account: ${{ secrets.billing_account }}
           TF_VAR_org_id: ${{ secrets.org_id }}
         run: |-
-          echo $GITHUB_BASE_REF
-
+          echo $GITHUB_WORKFLOW
           cd config/${{ inputs.env }}/${{ inputs.path }} && terragrunt run-all plan -lock=${{ inputs.lock }}
