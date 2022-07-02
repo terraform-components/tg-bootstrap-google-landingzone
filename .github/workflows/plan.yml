@@ -84,5 +84,4 @@ jobs:
           TF_VAR_billing_account: ${{ secrets.billing_account }}
           TF_VAR_org_id: ${{ secrets.org_id }}
         run: |-
-          echo $GITHUB_WORKFLOW
           cd config/${{ inputs.env }}/${{ inputs.path }} && terragrunt run-all plan -lock=${{ inputs.lock }}
