@@ -30,6 +30,7 @@ resource "google_iam_workload_identity_pool_provider" "github" {
     # https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/using-openid-connect-with-reusable-workflows
     "attribute.repository_base_ref_job_workflow_ref" = "assertion.repository + '/' + assertion.base_ref + '/' + assertion.job_workflow_ref"
     "attribute.repository_base_ref_workflow"         = "assertion.repository + '/' + assertion.base_ref + '/' + assertion.workflow"
+    "attribute.repository_base_ref"                  = "assertion.repository + '/' + assertion.base_ref"
   }
   oidc {
     issuer_uri = "https://token.actions.githubusercontent.com"
