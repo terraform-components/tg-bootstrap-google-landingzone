@@ -1,13 +1,15 @@
-terraform {
-  source = "${get_path_to_repo_root()}//stacks/projects"
+include "root" {
+  path = find_in_parent_folders("root.hcl")
 }
 
-dependency "folders" {
-  config_path = "../folders"
+include "projects" {
+  path = find_in_parent_folders("components/projects.hcl")
 }
 
 # These inputs get merged with the common inputs from the root
 inputs = {
+
+  environments = { lz = dependency.folders.outputs.environments["lz"] }
 
   default_apis = [
     "monitoring.googleapis.com",
@@ -15,12 +17,17 @@ inputs = {
   ]
 
   projects = [
-    "monitoring",
-    "cloudrun-simple",
+    "management",
+    "artifacts",
   ]
 
   additional_apis = {
-    cloudrun-simple = [
+    artifacts = [
+      "artifactregistry.googleapis.com",
+      "cloudkms.googleapis.com",
+    ]
+    management = [
+      "iamcredentials.googleapis.com",
       "servicenetworking.googleapis.com",
       "compute.googleapis.com",
       "run.googleapis.com",
@@ -33,6 +40,12 @@ inputs = {
       "iap.googleapis.com",
       "redis.googleapis.com",
       "cloudkms.googleapis.com",
+      "container.googleapis.com",
+      "sourcerepo.googleapis.com",
+      "cloudresourcemanager.googleapis.com",
+      "serviceusage.googleapis.com",
+      "secretmanager.googleapis.com",
     ]
   }
 }
+

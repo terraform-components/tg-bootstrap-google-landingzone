@@ -7,6 +7,10 @@ locals {
     dev = "SM Development"
     prd = "SM Production"
   }
+  stages = [
+    "dev",
+    "prd"
+  ]
   docker_apps = [
     "testapp"
   ]

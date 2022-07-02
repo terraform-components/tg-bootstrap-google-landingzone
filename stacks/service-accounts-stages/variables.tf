@@ -14,7 +14,7 @@ variable "deploy_workflow" {
 
 variable "review_workflow" {
   type    = string
-  default = "review"
+  default = "sandrom/tf-gcp-bootstrap/.github/workflows/plan.yml@*"
 }
 
 variable "repositories" {
@@ -35,6 +35,6 @@ variable "deployers" {
   default = []
 }
 
-variable "folder" {
-  type = string
+variable "stages" {
+  type = map(string)
 }

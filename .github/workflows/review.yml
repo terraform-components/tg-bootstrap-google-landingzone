@@ -1,4 +1,4 @@
-name: review-lz
+name: review
 
 on:
   pull_request:
@@ -23,3 +23,9 @@ jobs:
     with:
       env: lz
       path: artifacts
+
+  cloudrun-simple:
+    uses: ./.github/workflows/plan.yml
+    with:
+      env: dev
+      path: cloudrun-simple
