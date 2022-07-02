@@ -1,0 +1,142 @@
+name: plan
+
+# https://docs.github.com/en/actions/using-workflows/reusing-workflows
+
+on:
+  workflow_call:
+    inputs:
+      env:
+        description: The environment we are running in
+        required: true
+        type: string
+      path:
+        description: path
+        required: false
+        default: ""
+        type: string
+      terraform_version:
+        required: false
+        type: string
+        default: "1.1.9"
+      terragrunt_version:
+        required: false
+        type: string
+        default: "0.36.12"
+      service_account_suffix:
+        required: false
+        type: string
+        default: -reviewer@sm-lz-management.iam.gserviceaccount.com
+      workload_identity_provider:
+        required: false
+        type: string
+        default: projects/781327394004/locations/global/workloadIdentityPools/github/providers/github
+      lock:
+        required: false
+        type: string
+        default: "false"
+    secrets:
+      billing_account:
+        required: false
+      org_id:
+        required: false
+      infracost_api_key:
+        required: true
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: "read"
+      id-token: "write"
+
+    outputs:
+      plan: ${{ steps.plan.outcome }}
+      plan-has-changes: ${{ steps.plan.outputs.plan_has_changes }}
+      plan-output: ${{ steps.plan.outputs.plan_output }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ inputs.terraform_version }}
+          terraform_wrapper: false
+
+      - name: Setup Terragrunt
+        uses: autero1/action-terragrunt@v1.1.0
+        with:
+          terragrunt_version: ${{ inputs.terragrunt_version }}
+
+      # https://github.com/google-github-actions/auth/blob/main/docs/TROUBLESHOOTING.md
+      - id: gcpauth
+        name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v0
+        with:
+          workload_identity_provider: ${{ inputs.workload_identity_provider }}
+          service_account: "${{ inputs.env }}${{ inputs.service_account_suffix }}"
+
+      - name: Setup Cloud
+        uses: google-github-actions/setup-gcloud@v0
+
+      - id: plan
+        name: Run Plan
+        env:
+          TF_VAR_billing_account: ${{ secrets.billing_account }}
+          TF_VAR_org_id: ${{ secrets.org_id }}
+        run: |-
+          cd config/${{ inputs.env }}/${{ inputs.path }} && terragrunt run-all plan -lock=${{ inputs.lock }}
+
+  cost:
+    runs-on: ubuntu-latest
+
+    env:
+      TF_ROOT: config/${{inputs.env}}/${{inputs.path}}
+
+    steps:
+      # https://github.com/infracost/actions
+      - name: Setup Infracost
+        uses: infracost/actions/setup@v2
+        with:
+          api-key: ${{ secrets.infracost_api_key }}
+
+      # Checkout the base branch of the pull request (e.g. main/master).
+      - name: Checkout base branch
+        uses: actions/checkout@v3
+        with:
+          ref: "${{ github.event.pull_request.base.ref }}"
+
+      # Generate Infracost JSON file as the baseline.
+      - name: Generate Infracost cost estimate baseline
+        run: |
+          infracost breakdown --path=${TF_ROOT} \
+                              --format=json \
+                              --out-file=/tmp/infracost-base.json
+
+      # Checkout the current PR branch so we can create a diff.
+      - name: Checkout PR branch
+        uses: actions/checkout@v2
+
+      # Generate an Infracost diff and save it to a JSON file.
+      - name: Generate Infracost diff
+        run: |
+          infracost diff --path=${TF_ROOT} \
+                        --format=json \
+                        --compare-to=/tmp/infracost-base.json \
+                        --out-file=/tmp/infracost.json
+
+      # Posts a comment to the PR using the 'update' behavior.
+      # This creates a single comment and updates it. The "quietest" option.
+      # The other valid behaviors are:
+      #   delete-and-new - Delete previous comments and create a new one.
+      #   hide-and-new - Minimize previous comments and create a new one.
+      #   new - Create a new cost estimate comment on every push.
+      # See https://www.infracost.io/docs/features/cli_commands/#comment-on-pull-requests for other options.
+      - name: Post Infracost comment
+        run: |
+          infracost comment github --path=/tmp/infracost.json \
+                                  --repo=$GITHUB_REPOSITORY \
+                                  --github-token=${{github.token}} \
+                                  --pull-request=${{github.event.pull_request.number}} \
+                                  --behavior=update

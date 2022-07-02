@@ -25,7 +25,9 @@ jobs:
       path: artifacts
 
   cloudrun-simple:
-    uses: ./.github/workflows/plan.yml
+    uses: ./.github/workflows/plan-with-cost.yml
     with:
       env: dev
       path: cloudrun-simple
+    secrets:
+      infracost_api_key: ${{ secrets.infracost_api_key }}
