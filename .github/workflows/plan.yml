@@ -112,7 +112,6 @@ jobs:
     steps:
       # https://github.com/infracost/actions
       - name: Setup Infracost
-        if: inputs.cost == true
         uses: infracost/actions/setup@v2
         with:
           api-key: ${{ secrets.infracost_api_key }}
