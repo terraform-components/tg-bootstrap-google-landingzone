@@ -29,3 +29,6 @@ jobs:
     with:
       env: dev
       path: cloudrun-simple
+      check-cost: true
+    secrets:
+      infracost_api_key: ${{ secrets.infracost_api_key }}

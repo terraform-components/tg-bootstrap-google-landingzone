@@ -34,10 +34,16 @@ on:
         required: false
         type: string
         default: "false"
+      check-cost:
+        required: false
+        type: boolean
+        default: false
     secrets:
       billing_account:
         required: false
       org_id:
+        required: false
+      infracost_api_key:
         required: false
 jobs:
   plan:
@@ -85,3 +91,68 @@ jobs:
           TF_VAR_org_id: ${{ secrets.org_id }}
         run: |-
           cd config/${{ inputs.env }}/${{ inputs.path }} && terragrunt run-all plan -lock=${{ inputs.lock }}
+
+  cost:
+    runs-on: ubuntu-latest
+
+    if: inputs.check-cost == true
+
+    permissions:
+      contents: "read"
+      id-token: "write"
+
+    outputs:
+      plan: ${{ steps.plan.outcome }}
+      plan-has-changes: ${{ steps.plan.outputs.plan_has_changes }}
+      plan-output: ${{ steps.plan.outputs.plan_output }}
+
+    env:
+      TF_ROOT: config/${{inputs.env}}/${{inputs.path}}
+
+    steps:
+      # https://github.com/infracost/actions
+      - name: Setup Infracost
+        if: inputs.cost == true
+        uses: infracost/actions/setup@v2
+        with:
+          api-key: ${{ secrets.infracost_api_key }}
+
+      # Checkout the base branch of the pull request (e.g. main/master).
+      - name: Checkout base branch
+        uses: actions/checkout@v3
+        with:
+          ref: "${{ github.event.pull_request.base.ref }}"
+
+      # Generate Infracost JSON file as the baseline.
+      - name: Generate Infracost cost estimate baseline
+        run: |
+          infracost breakdown --path=${TF_ROOT} \
+                              --format=json \
+                              --out-file=/tmp/infracost-base.json
+
+      # Checkout the current PR branch so we can create a diff.
+      - name: Checkout PR branch
+        uses: actions/checkout@v2
+
+      # Generate an Infracost diff and save it to a JSON file.
+      - name: Generate Infracost diff
+        run: |
+          infracost diff --path=${TF_ROOT} \
+                        --format=json \
+                        --compare-to=/tmp/infracost-base.json \
+                        --out-file=/tmp/infracost.json
+
+      # Posts a comment to the PR using the 'update' behavior.
+      # This creates a single comment and updates it. The "quietest" option.
+      # The other valid behaviors are:
+      #   delete-and-new - Delete previous comments and create a new one.
+      #   hide-and-new - Minimize previous comments and create a new one.
+      #   new - Create a new cost estimate comment on every push.
+      # See https://www.infracost.io/docs/features/cli_commands/#comment-on-pull-requests for other options.
+      - name: Post Infracost comment
+        run: |
+          infracost comment github --path=/tmp/infracost.json \
+                                  --repo=$GITHUB_REPOSITORY \
+                                  --github-token=${{github.token}} \
+                                  --pull-request=${{github.event.pull_request.number}} \
+                                  --behavior=update
