@@ -9,7 +9,7 @@ dependency "folders" {
 # These inputs get merged with the common inputs from the root
 inputs = {
   repositories = [
-    "sandrom/tf-gcp-bootstrap"
+    "sandromanke/tf-gcp-bootstrap"
   ]
   github_workload_identity_pool = dependency.github-workload-pool.outputs.workload_identity_pool
 }
