@@ -9,6 +9,8 @@ jobs:
     with:
       env: lz
     secrets:
+      service_account: ${{ secrets.service_account }}
+      workload_identity_provider: ${{ secrets.workload_identity_provider }}
       org_id: ${{ secrets.org_id }}
       billing_account: ${{ secrets.billing_account }}
 
@@ -17,12 +19,18 @@ jobs:
     with:
       env: lz
       path: management
+    secrets:
+      service_account: ${{ secrets.service_account }}
+      workload_identity_provider: ${{ secrets.workload_identity_provider }}
 
   artifacts:
     uses: ./.github/workflows/plan.yml
     with:
       env: lz
       path: artifacts
+    secrets:
+      service_account: ${{ secrets.service_account }}
+      workload_identity_provider: ${{ secrets.workload_identity_provider }}
 
   cloudrun-simple:
     uses: ./.github/workflows/plan-with-cost.yml
@@ -31,3 +39,5 @@ jobs:
       path: cloudrun-simple
     secrets:
       infracost_api_key: ${{ secrets.infracost_api_key }}
+      service_account: ${{ secrets.service_account }}
+      workload_identity_provider: ${{ secrets.workload_identity_provider }}
