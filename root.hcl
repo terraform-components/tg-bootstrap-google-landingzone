@@ -43,7 +43,7 @@ locals {
 }
 
 module "resource_naming" {
-  source      = "github.com/terraform-components/tf-module-google-naming"
+  source      = "github.com/terraform-components/terraform-google-naming"
 }
 
 variable "name" {
