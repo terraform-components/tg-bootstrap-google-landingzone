@@ -2,7 +2,7 @@
 resource "google_service_account" "infra_deployer" {
   account_id   = "${var.environment}-deployer"
   display_name = "${var.environment} Infrastructure Deployer"
-  project      = var.project
+  project      = data.google_project.current.project_id
 }
 
 # Binding to the Github Repositories to assume this role.
@@ -37,10 +37,4 @@ resource "google_organization_iam_member" "infra_deployer_billing_user" {
   org_id = var.org_id
   role   = "roles/billing.user"
   member = "serviceAccount:${google_service_account.infra_deployer.email}"
-}
-
-resource "google_project_iam_member" "infra_deployer_tfstate" {
-  project = "${var.context}-lz-tfstate"
-  role    = "roles/storage.objectAdmin"
-  member  = "serviceAccount:${google_service_account.infra_deployer.email}"
 }

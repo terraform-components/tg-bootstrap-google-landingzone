@@ -1,3 +1,6 @@
+variable "context" {
+  type = string
+}
 
 variable "projects" {
   type = list(string)

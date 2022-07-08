@@ -1,0 +1,8 @@
+# generally any contributor can review changes
+* @terraform-components/contributors
+
+# any changes on workflows need to be reviewed
+.github/*           @terraform-components/cicd
+
+# this file should not be changed easily
+.github/CODEOWNERS  @terraform-components/admins

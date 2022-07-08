@@ -1,3 +1,7 @@
+variable "environment" {
+  type = string
+}
+
 variable "main_branch" {
   type    = string
   default = "main"

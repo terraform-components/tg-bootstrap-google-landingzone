@@ -1,43 +1,33 @@
-name: review
+# name: review
 
-on:
-  pull_request:
+# on:
+#   pull_request:
 
-jobs:
-  bootstrap:
-    uses: ./.github/workflows/plan.yml
-    with:
-      env: lz
-    secrets:
-      service_account: ${{ secrets.service_account }}
-      workload_identity_provider: ${{ secrets.workload_identity_provider }}
-      org_id: ${{ secrets.org_id }}
-      billing_account: ${{ secrets.billing_account }}
+# jobs:
+#   bootstrap:
+#     uses: ./.github/workflows/plan.yml
+#     with:
+#       env: lz
+#     secrets:
+#       service_account: ${{ secrets.service_account }}
+#       workload_identity_provider: ${{ secrets.workload_identity_provider }}
+#       org_id: ${{ secrets.org_id }}
+#       billing_account: ${{ secrets.billing_account }}
 
-  management:
-    uses: ./.github/workflows/plan.yml
-    with:
-      env: lz
-      path: management
-    secrets:
-      service_account: ${{ secrets.service_account }}
-      workload_identity_provider: ${{ secrets.workload_identity_provider }}
+#   management:
+#     uses: ./.github/workflows/plan.yml
+#     with:
+#       env: lz
+#       path: management
+#     secrets:
+#       service_account: ${{ secrets.service_account }}
+#       workload_identity_provider: ${{ secrets.workload_identity_provider }}
 
-  artifacts:
-    uses: ./.github/workflows/plan.yml
-    with:
-      env: lz
-      path: artifacts
-    secrets:
-      service_account: ${{ secrets.service_account }}
-      workload_identity_provider: ${{ secrets.workload_identity_provider }}
-
-  cloudrun-simple:
-    uses: ./.github/workflows/plan-with-cost.yml
-    with:
-      env: dev
-      path: cloudrun-simple
-    secrets:
-      infracost_api_key: ${{ secrets.infracost_api_key }}
-      service_account: ${{ secrets.service_account }}
-      workload_identity_provider: ${{ secrets.workload_identity_provider }}
+#   artifacts:
+#     uses: ./.github/workflows/plan.yml
+#     with:
+#       env: lz
+#       path: artifacts
+#     secrets:
+#       service_account: ${{ secrets.service_account }}
+#       workload_identity_provider: ${{ secrets.workload_identity_provider }}

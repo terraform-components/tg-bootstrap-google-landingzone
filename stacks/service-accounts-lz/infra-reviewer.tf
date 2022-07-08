@@ -2,7 +2,7 @@
 resource "google_service_account" "infra_reviewer" {
   account_id   = "${var.environment}-reviewer"
   display_name = "${var.environment} Infrastructure Viewer"
-  project      = var.project
+  project      = data.google_project.current.project_id
 }
 
 # Binding to the Github Repositories to assume this role.
@@ -45,8 +45,3 @@ resource "google_organization_iam_member" "infra_reviewer_billing_viewer" {
   member = "serviceAccount:${google_service_account.infra_reviewer.email}"
 }
 
-resource "google_project_iam_member" "infra_reviewer_tfstate" {
-  project = "${var.context}-lz-tfstate"
-  role    = "roles/storage.objectViewer"
-  member  = "serviceAccount:${google_service_account.infra_reviewer.email}"
-}

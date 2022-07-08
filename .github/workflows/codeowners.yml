@@ -1,0 +1,19 @@
+name: Codeowners Validator
+
+on:
+  workflow_dispatch:
+  pull_request:
+
+jobs:
+  validate-codeowners:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout source code at current commit"
+        uses: actions/checkout@v3
+
+      - uses: mszostok/codeowners-validator@v0.7.4
+        name: "Check CODEOWNERS"
+        with:
+          checks: "files,syntax,duppatterns"
+          experimental_checks: "notowned,avoid-shadowing"
+          owner_checker_allow_unowned_patterns: "false"
