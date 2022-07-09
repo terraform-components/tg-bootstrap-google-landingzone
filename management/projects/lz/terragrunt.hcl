@@ -14,12 +14,17 @@ inputs = {
   default_apis = [
     "monitoring.googleapis.com",
     "logging.googleapis.com",
+    "billingbudgets.googleapis.com",
   ]
 
   projects = [
     "management",
     "artifacts",
   ]
+
+  project_budget_amount = {
+    artifacts = 20
+  }
 
   additional_apis = {
     artifacts = [

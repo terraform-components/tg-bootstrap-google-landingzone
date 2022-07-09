@@ -14,6 +14,7 @@ inputs = {
   default_apis = [
     "monitoring.googleapis.com",
     "logging.googleapis.com",
+    "billingbudgets.googleapis.com",
   ]
 
   projects = [

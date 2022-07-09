@@ -13,6 +13,7 @@ inputs = {
   default_apis = [
     "monitoring.googleapis.com",
     "logging.googleapis.com",
+    "billingbudgets.googleapis.com",
     "servicenetworking.googleapis.com",
     "compute.googleapis.com",
     "run.googleapis.com",
