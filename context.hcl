@@ -1,7 +1,7 @@
 locals {
-  context         = "tc"
+  namespace       = "tc2"
   name            = "bootstrap"
-  tfstate_project = "${local.context}-lz-tfstate"
+  tfstate_project = "${local.namespace}-lz-tfstate"
 
   environment = "lz"
 

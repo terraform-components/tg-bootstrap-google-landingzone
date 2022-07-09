@@ -15,7 +15,7 @@ make login
 
 # for starting out we need an initial project. this will be the org management project
 # this will contain the terraform state
-export MANAGEMENT_PROJECT=tc-lz-management
+export MANAGEMENT_PROJECT=tc2-lz-management
 gcloud projects create ${MANAGEMENT_PROJECT} --organization ${TF_VAR_org_id}
 gcloud beta billing projects link ${MANAGEMENT_PROJECT} --billing-account ${TF_VAR_billing_account}
 
@@ -25,9 +25,8 @@ cd policies
 terragrunt apply
 # yes, we want to create the gcs bucket
 
-cd ../policies
+cd ../folders
 terragrunt apply
-# yes, we want to create the gcs bucket
 
 cd ../projects/lz
 terragrunt import "google_project.project[\"lz-management\"]" ${MANAGEMENT_PROJECT}

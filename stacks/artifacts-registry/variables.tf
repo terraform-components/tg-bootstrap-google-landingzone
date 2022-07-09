@@ -5,3 +5,7 @@ variable "docker_apps" {
 variable "location" {
   type = string
 }
+
+variable "kms_key_id" {
+  type = string
+}

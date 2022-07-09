@@ -10,8 +10,8 @@ locals {
 
 resource "google_project" "project" {
   for_each            = local.projects
-  name                = "${var.context}-${each.value.environment}-${each.value.project}"
-  project_id          = "${var.context}-${each.value.environment}-${each.value.project}"
+  name                = "${var.namespace}-${each.value.environment}-${each.value.project}"
+  project_id          = "${var.namespace}-${each.value.environment}-${each.value.project}"
   folder_id           = each.value.folder
   billing_account     = var.billing_account
   skip_delete         = true

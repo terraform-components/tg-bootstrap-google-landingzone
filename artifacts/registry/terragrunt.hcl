@@ -2,10 +2,15 @@ include "root" {
   path = find_in_parent_folders("root.hcl")
 }
 
-include "tfstate" {
-  path = find_in_parent_folders("components/artifacts-registry.hcl")
+terraform {
+  source = "${get_path_to_repo_root()}//stacks/artifacts-registry"
+}
+
+dependency "kms" {
+  config_path = "../kms"
 }
 
 inputs = {
-  location = "europe"
+  kms_key_id = dependency.kms.outputs.kms_key_ids["artifacts"]
+  location   = "europe"
 }
