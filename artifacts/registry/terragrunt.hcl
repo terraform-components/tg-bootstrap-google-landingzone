@@ -12,5 +12,5 @@ dependency "kms" {
 
 inputs = {
   kms_key_id = dependency.kms.outputs.kms_key_ids["artifacts"]
-  location   = "europe"
+
 }
