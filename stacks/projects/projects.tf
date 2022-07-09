@@ -4,6 +4,12 @@ locals {
       project     = v[1]
       environment = v[0]
       folder      = var.environments[v[0]]
+      budget = merge(
+        var.default_project_budget,
+        {
+          amount = lookup(var.project_budget_amount, v[1], null)
+        }
+      )
     }
   }
 }
@@ -17,6 +23,35 @@ resource "google_project" "project" {
   skip_delete         = true
   labels              = local.labels
   auto_create_network = false
+}
+
+resource "google_billing_budget" "project" {
+  for_each        = { for k, v in local.projects : k => v if v.budget != null }
+  display_name    = "Project Budget ${google_project.project[each.key].name}"
+  billing_account = var.billing_account
+
+  budget_filter {
+    projects = ["projects/${google_project.project[each.key].number}"]
+  }
+
+  amount {
+    specified_amount {
+      units         = each.value.budget.amount
+      currency_code = each.value.budget.currency_code
+    }
+  }
+
+  dynamic "threshold_rules" {
+    for_each = each.value.budget.threshold_rules
+    content {
+      threshold_percent = threshold_rules.value.threshold_percent
+      spend_basis       = threshold_rules.value.spend_basis
+    }
+  }
+
+  depends_on = [
+    module.project_services
+  ]
 }
 
 module "project_services" {
